@@ -1,4 +1,7 @@
 #include <iostream>
+#include <OrderBookEntry.cpp>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -11,6 +14,10 @@ void placeAsk();
 void placeBid();
 void printWallet();
 void continueUsingApp();
+double computeAveragePrice(vector<OrderBookEntry>& entries);
+double computeLowPrice(vector<OrderBookEntry>& entries);
+double computeHighPrice(vector<OrderBookEntry>& entries);
+double computePriceSpread(vector<OrderBookEntry>& entries);
 
 int main()
 {
@@ -111,4 +118,55 @@ void printWallet()
 void continueUsingApp()
 {
     cout << "You selected option 6\n";
+}
+
+///////////////////////////////////////////////////////////////////////
+
+double computeAveragePrice(vector<OrderBookEntry>& entries)
+{
+    int averagePrice = 0;
+
+    for (OrderBookEntry& e : entries)
+    {
+        averagePrice+=e.price;
+    }
+
+    return averagePrice/entries.size();
+}
+
+double computeLowPrice(vector<OrderBookEntry>& entries)
+{
+    int lowestPrice = entries[0].price;
+
+    for (OrderBookEntry& e : entries)
+    {
+        if (e.price < lowestPrice)
+        {
+            lowestPrice = e.price;
+        }
+        
+    }
+    
+    return lowestPrice;
+}
+
+double computeHighPrice(vector<OrderBookEntry>& entries)
+{
+    int highestPrice = entries[0].price;
+
+    for (OrderBookEntry& e : entries)
+    {
+        if (e.price > highestPrice)
+        {
+            highestPrice = e.price;
+        }
+        
+    }
+    
+    return highestPrice;
+}
+
+double computePriceSpread(vector<OrderBookEntry>& entries)
+{
+
 }
